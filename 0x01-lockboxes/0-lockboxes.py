@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+""" This module contains an algorithm for LockBox"""
+
 
 def canUnlockAll(boxes):
+    """ Returns if all Boxes can be opened """
     if type(boxes) != list or len(boxes) == 0:
         return False
 
