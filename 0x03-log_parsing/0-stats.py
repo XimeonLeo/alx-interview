@@ -19,22 +19,22 @@ try:
     for line in sys.stdin:
         line_tokens = line.split()
         try:
-            file_size = int(line_tokens[-1])
-            file_size += file_size
-            status_code = int(line_tokens[-2])
-            if status_code in possible_status_codes:
-                if status_code in status_code:
-                    status_code[status_code] += 1
+            file_size += int(line_tokens[-1])  # Update file_size
+            status = int(line_tokens[-2])  # Store status temporarily
+            if status in possible_status_codes:
+                if status in status_code:
+                    status_code[status] += 1
                 else:
-                    status_code[status_code] = 1
+                    status_code[status] = 1
         except ValueError:
             pass
         read += 1
         if read % 10 == 0:
             print_stats()
 
-    if (read == 0) or (read % 10 != 0):
+    if read == 0 or read % 10 != 0:
         print_stats()
 
-except (KeyboardInterrupt):
+except KeyboardInterrupt:
     print_stats()
+
