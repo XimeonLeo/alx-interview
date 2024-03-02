@@ -1,60 +1,44 @@
 #!/usr/bin/python3
-"""This script solves the N-Queens problem"""
-
+""" This module contains Nqueen puzzle challenge"""
 import sys
 
-if len(sys.argv) != 2:
+
+if len(sys.argv) > 2 or len(sys.argv) < 2:
     print("Usage: nqueens N")
     exit(1)
 
-try:
-    N = int(sys.argv[1])
-except ValueError:
+if not sys.argv[1].isdigit():
     print("N must be a number")
     exit(1)
 
-if N < 4:
+if int(sys.argv[1]) < 4:
     print("N must be at least 4")
     exit(1)
 
-columns = set()
-pos_diagonal = set()
-neg_diagonal = set()
-board = []
-
-# create the board positions
-for _ in range(N):
-    row = [0] * 2
-    board.append(row)
+n = int(sys.argv[1])
 
 
-def is_safe(r, c):
-    """Check if a queen can be placed
-        at position (r, c)th position
-    """
-    if c in columns or (r + c) in pos_diagonal or (r - c) in neg_diagonal:
-        return False
-    return True
+def queens(n, i=0, a=[], b=[], c=[]):
+    """ This method find every possible positions """
+    if i < n:
+        for j in range(n):
+            if j not in a and i + j not in b and i - j not in c:
+                yield from queens(n, i + 1, a + [j], b + [i + j], c + [i - j])
+    else:
+        yield a
 
 
-def solve_n_queens(r):
-    """recursively places N queens on an N x N chessboard"""
-    if r == N:
-        print(board)
-        return
-
-    for c in range(N):
-        if is_safe(r, c):
-            columns.add(c)
-            pos_diagonal.add(r + c)
-            neg_diagonal.add(r - c)
-            board[r] = [r, c]
-            solve_n_queens(r + 1)
-            # Backtrack
-            columns.remove(c)
-            pos_diagonal.remove(r + c)
-            neg_diagonal.remove(r - c)
-            board[r] = [0, 0]
+def solve(n):
+    """ This method solves the possible """
+    k = []
+    i = 0
+    for solution in queens(n, 0):
+        for s in solution:
+            k.append([i, s])
+            i += 1
+        print(k)
+        k = []
+        i = 0
 
 
-solve_n_queens(0)
+solve(n)
