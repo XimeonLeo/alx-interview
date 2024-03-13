@@ -27,7 +27,7 @@ def isWinner(x, nums):
     isWinner:
         x is the number of rounds and nums is an array of n
         0 <= ()x, n) <= 1000>
-    Return: 
+    Return:
         name of the player that won the most rounds
         None: if none is found
     """
